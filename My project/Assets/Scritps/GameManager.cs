@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 	public bool xPlayerTurn;
 	public GameObject[] prefabXO;
 	public bool g;
+    
 
 
 
@@ -23,7 +24,9 @@ public class GameManager : MonoBehaviour
     {
         
     }
-    
+    public int CheckForWin(array checkThis){
+        if ( 
+    }
     
     
     

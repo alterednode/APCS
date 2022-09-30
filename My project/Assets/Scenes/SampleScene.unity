@@ -524,7 +524,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e62ce3d03589e6439d73b0fe36cb400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 519420031}
+  cameraMoveTime: 0.08
+  focusedCameraSize: 2
+  zoomedOutCameraSize: 5
+  theCamera: {fileID: 519420031}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
