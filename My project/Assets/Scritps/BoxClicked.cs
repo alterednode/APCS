@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class BoxClicked : MonoBehaviour
 {
 	GameManager gameManager;
-	CameraMovement cameraScript;
     bool clickStartedHere = false;
 
 // Start is called before the first frame update
     void Start()
     {
 	    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-	    cameraScript = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
     }
 
 
@@ -29,11 +28,12 @@ public class BoxClicked : MonoBehaviour
     /// </summary>
     void OnMouseOver()
     {
-        if(Input.GetMouseButtonUp(0) && clickStartedHere){
+	    if(Input.GetMouseButtonUp(0) && clickStartedHere)
+	    {
+		    UpdateTracking();
+        	
 	        Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
 	        ThisBoxClicked();
-            
-            
         }
     }
 
@@ -50,15 +50,24 @@ public class BoxClicked : MonoBehaviour
         newPiece.transform.parent = gameObject.transform.parent.parent;
         
 		gameManager.xPlayerTurn = !gameManager.xPlayerTurn;
-		//if destinationPlayable
-        
-
-        // Removed Camera Movement for gameplay Reasons
-		// cameraScript.FocusOnThing(gameObject.transform.parent.gameObject);//,2.0f
 
         gameObject.SetActive(false);
 	}
     
+	void UpdateTracking()
+	{
+		int intOfThis = transform.GetSiblingIndex();
+		if (gameManager.xPlayerTurn)
+		{
+			transform.parent.parent.gameObject.GetComponent<GridManager>().
+				SetScoreOfThisThing(intOfThis,1);
+		}else
+		{
+			transform.parent.parent.gameObject.GetComponent<GridManager>().
+				SetScoreOfThisThing(intOfThis,-1);
+		}
+		
+	}
     
     
 }

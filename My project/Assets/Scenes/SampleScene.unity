@@ -430,6 +430,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1025443808}
     m_Modifications:
+    - target: {fileID: 1047665947563014631, guid: a6d2ee2501175d54bb2ecf4995248712, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2474945363121798222, guid: a6d2ee2501175d54bb2ecf4995248712, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -524,10 +528,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e62ce3d03589e6439d73b0fe36cb400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMoveTime: 0.08
-  focusedCameraSize: 2
-  zoomedOutCameraSize: 5
-  theCamera: {fileID: 519420031}
+  cameraMoveTime: 0
+  focusedCameraSize: 0
+  zoomedOutCameraSize: 0
+  theCamera: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

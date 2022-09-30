@@ -549,6 +549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85e89a3640fc8f34e8299e6e2753e831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreTracking: 000000000000000000000000000000000000000000000000000000000000000000000000
+  triggers: {fileID: 1047665947563014631}
 --- !u!1 &4898493281727998961
 GameObject:
   m_ObjectHideFlags: 0
