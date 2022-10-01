@@ -20,11 +20,11 @@ public class WhereToPlay : MonoBehaviour
     // Update is called once per frame
     void Update()
 	{
-		transform.localScale = Vector3.Lerp(transform.localScale, new	Vector3(largeScale,largeScale,1), moveTime);
-		transform.position = Vector3.Lerp(transform.position, focusOnThis.transform.position, moveTime);
+		transform.localScale =  Vector3.Lerp(transform.localScale, new	Vector3(largeScale,largeScale,1), moveTime);
+		transform.position =  Vector3.Lerp(transform.position, focusOnThis.transform.position, moveTime);
 		foreach (Transform child in transform)
 		{
-			child.localScale = Vector3.Lerp(child.localScale	, new	Vector3(child.localScale.x,lineScale,1), moveTime);
+			child.localScale =  Vector3.Lerp(child.localScale	, new	Vector3(child.localScale.x,lineScale,1), moveTime);
 		}
 	}
     

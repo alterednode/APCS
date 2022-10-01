@@ -25,8 +25,9 @@ public class GridManager : MonoBehaviour
 	public void SetScoreOfThisThing(int	where, int whatScore)
 	{
 		
-		thisGridPlayable=GameManager.CheckPlayable(scoreTracking);
+		
 		scoreTracking[where] = whatScore;
+		thisGridPlayable=GameManager.CheckPlayable(scoreTracking);
 		if (GameManager.CheckForWin(scoreTracking)!=0)
 		{
 			ThisGameWon(GameManager.CheckForWin(scoreTracking));
