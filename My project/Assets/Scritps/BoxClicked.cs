@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using System.Text.RegularExpressions;
+//using System.Text.RegularExpressions;
 
 public class BoxClicked : MonoBehaviour
 {
 	GameManager gameManager;
-    bool clickStartedHere = false;
+	bool clickStartedHere = false;
+	GameObject smallGridHolder;
+	
 
 // Start is called before the first frame update
     void Start()
     {
 	    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+	    smallGridHolder = GameObject.Find("Small Grids");
     }
 
 
@@ -32,8 +35,16 @@ public class BoxClicked : MonoBehaviour
 	    {
 		    UpdateTracking();
         	
-	        Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
-	        ThisBoxClicked();
+		    Debug.Log(gameObject.name + gameObject.transform.parent.parent.name);
+	        
+		    SpawnXorO();
+	        
+		    GameObject.Find("WhereToPlay").GetComponent<WhereToPlay>().
+			    SetLocationAndScale((smallGridHolder.transform.GetChild(transform.GetSiblingIndex())).transform);
+			    
+	        
+	        
+	        
         }
     }
 
@@ -43,7 +54,7 @@ public class BoxClicked : MonoBehaviour
 	   
     }
 	
-	void ThisBoxClicked()
+	void SpawnXorO()
 	{
 		GameObject newPiece = Instantiate(gameManager.prefabXO[Convert.ToInt32(gameManager.xPlayerTurn)]);
 		newPiece.transform.position = gameObject.transform.position;
@@ -57,6 +68,9 @@ public class BoxClicked : MonoBehaviour
 	void UpdateTracking()
 	{
 		int intOfThis = transform.GetSiblingIndex();
+		
+		
+		
 		if (gameManager.xPlayerTurn)
 		{
 			transform.parent.parent.gameObject.GetComponent<GridManager>().

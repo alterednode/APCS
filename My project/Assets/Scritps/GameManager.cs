@@ -1,29 +1,107 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+//using ;
 
 public class GameManager : MonoBehaviour
 {
 
 	public bool xPlayerTurn;
+	public GameObject indicator;
 	public GameObject[] prefabXO;
-	public bool g;
     
+	GameObject currentPlayerThing;
+	GameObject notCurrentPlayerThing;
+	
+	public GameObject restartButton;
 
-
-
+	private bool c_xPlayerTurn;
 
     // Start is called before the first frame update
     void Start()
-    {
-        
+	{
+		xPlayerTurn = Random.value > 0.5f;
+		c_xPlayerTurn = !xPlayerTurn;
+		restartButton = GameObject.Find("RestartButton");
+		restartButton.SetActive(false);
     }
 
     // Update is called once per frame
+	
     void Update()
     {
-        
+	    AnimateIndicator();
+	    
     }
+    
+    
+	public void Restart()
+	{
+		Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+	}
+    
+    
+	void AnimateIndicator()
+	{
+		
+		if (Screen.width > Screen.height)
+		{
+			indicator.transform.position = Vector3.Lerp(new Vector3(-5.62f, 0,0), indicator.transform.position, 0.06f);
+		}else
+		{
+			indicator.transform.position = Vector3.Lerp(new Vector3(0, 5.4f,0), indicator.transform.position, 0.06f);
+		}
+		
+		
+		
+		
+		if(c_xPlayerTurn!=xPlayerTurn){
+
+			if(xPlayerTurn){
+				notCurrentPlayerThing=
+					indicator.transform.Find("O").gameObject;
+				currentPlayerThing=
+					indicator.transform.Find("X").gameObject;
+				
+			}else{
+				currentPlayerThing=
+					indicator.transform.Find("O").gameObject;
+				notCurrentPlayerThing=
+					indicator.transform.Find("X").gameObject;
+			}
+		}
+		currentPlayerThing.transform.position = Vector3.Lerp(currentPlayerThing.transform.position, (indicator.transform.position + new Vector3(-.5f,0,0)),0.08f);
+		if (currentPlayerThing.transform.localScale.x	 < 2)
+		{
+			currentPlayerThing.transform.localScale *= 1.01f;
+		}
+		notCurrentPlayerThing.transform.position = Vector3.Lerp(notCurrentPlayerThing.transform.position, (indicator.transform.position + new Vector3(.5f,0,0)), 0.08f);
+		c_xPlayerTurn = xPlayerTurn;
+		if (notCurrentPlayerThing.transform.localScale.x >.8)
+		{
+			notCurrentPlayerThing.transform.localScale *= .9f;
+			
+		}
+		{
+			
+		}
+		}
+	
+    
+    
+    
+	public static bool CheckPlayable(int[] checkThis)
+	{
+		foreach (int x in checkThis)
+		{
+			if (x.Equals (0))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public static int CheckForWin(int[] checkThis)
 	{

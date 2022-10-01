@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+	public bool thisGridPlayable = true;
 	public int[] scoreTracking = new int[9] {0,0,0,0,0,0,0,0,0};
 	public GameObject triggers;
 	GameManager gameManager;
@@ -16,19 +17,28 @@ public class GridManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+	{
+
+	    
     }
     
 	public void SetScoreOfThisThing(int	where, int whatScore)
 	{
+		
+		thisGridPlayable=GameManager.CheckPlayable(scoreTracking);
 		scoreTracking[where] = whatScore;
 		if (GameManager.CheckForWin(scoreTracking)!=0)
 		{
 			ThisGameWon(GameManager.CheckForWin(scoreTracking));
+			thisGridPlayable=false;
 		}
 		
+		
 	}
+	
+	
+	
+	
 	
 	public void ThisGameWon(int	winningInt)
 	{
@@ -36,15 +46,17 @@ public class GridManager : MonoBehaviour
 		triggers.SetActive(false);
 		if (winningInt == 3)
 		{
-			WinningSymbol=gameManager.prefabXO[1];
-			GameObject.Find("BigGrid").GetComponent<BigGridManager>().scoreTracking[
-				transform.GetSiblingIndex()]=1;
+			WinningSymbol= Instantiate(gameManager.prefabXO[1]);
+			
+			GameObject.Find("BigGrid").GetComponent<BigGridManager>().SetScoreOfThisThing(transform.GetSiblingIndex(),1);
 		}else
 		{
-			WinningSymbol=gameManager.prefabXO[0];
-			GameObject.Find("BigGrid").GetComponent<BigGridManager>().scoreTracking[
-				transform.GetSiblingIndex()]=1;
+			WinningSymbol= Instantiate(gameManager.prefabXO[0]);
+			
+			GameObject.Find("BigGrid").GetComponent<BigGridManager>().SetScoreOfThisThing(transform.GetSiblingIndex(),-1);
 		}
+		WinningSymbol.transform.localScale *=4;
+		WinningSymbol.transform.position = transform.position;
 	}
 	
     
